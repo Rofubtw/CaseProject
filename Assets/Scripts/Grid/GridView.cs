@@ -1,9 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// Visual representation of the grid. Draws grid lines and placement highlights
-/// via GL (MVC View layer). Fully resolution-independent.
+/// via a dynamic Mesh (MVC View layer). Fully resolution-independent.
 /// </summary>
 public class GridView : MonoBehaviour
 {
@@ -14,78 +15,110 @@ public class GridView : MonoBehaviour
     [SerializeField] private RectTransform gameArea;
 
     private GridModel model;
-    private Material lineMaterial;
+    private Material gridMaterial;
 
-    // Highlight state — drawn via GL, no GameObjects needed
+    private MeshFilter meshFilter;
+    private MeshRenderer meshRenderer;
+    private Mesh gridMesh;
+    private GameObject gridObj;
+
+    // Highlight state
     private Vector2Int highlightOrigin;
     private Vector2Int highlightSize;
     private Color highlightColor;
     private bool showHighlight;
 
+    // Resolution tracking for camera re-positioning
+    private int lastScreenWidth;
+    private int lastScreenHeight;
+
+    // Reusable buffers to avoid GC every frame
+    private readonly List<Vector3> vertices = new List<Vector3>();
+    private readonly List<Color> colors = new List<Color>();
+    private readonly List<int> triIndices = new List<int>();
+
     public void Initialize(GridModel model)
     {
         this.model = model;
-        CreateLineMaterial();
+        SetupMeshRenderer();
         StartCoroutine(PositionCameraDeferred());
     }
 
     private IEnumerator PositionCameraDeferred()
     {
+        // Wait two frames to ensure canvas layout is fully resolved at any resolution
+        yield return null;
         yield return null;
         PositionCamera();
+        lastScreenWidth = Screen.width;
+        lastScreenHeight = Screen.height;
     }
 
-    private void CreateLineMaterial()
+    private void SetupMeshRenderer()
     {
-        Shader shader = Shader.Find("Hidden/Internal-Colored");
-        lineMaterial = new Material(shader);
-        lineMaterial.hideFlags = HideFlags.HideAndDontSave;
-        lineMaterial.SetInt("_ZWrite", 0);
-        lineMaterial.SetInt("_ZTest", (int)UnityEngine.Rendering.CompareFunction.Always);
+        // Root-level object to avoid inheriting any parent transform scale/position
+        gridObj = new GameObject("GridMesh");
+        gridObj.transform.position = Vector3.zero;
+        gridObj.transform.rotation = Quaternion.identity;
+        gridObj.transform.localScale = Vector3.one;
+
+        meshFilter = gridObj.AddComponent<MeshFilter>();
+        meshRenderer = gridObj.AddComponent<MeshRenderer>();
+
+        Shader shader = Shader.Find("Sprites/Default");
+        if (shader == null) shader = Shader.Find("UI/Default");
+        gridMaterial = new Material(shader);
+        gridMaterial.hideFlags = HideFlags.HideAndDontSave;
+        gridMaterial.color = Color.white;
+
+        meshRenderer.sharedMaterial = gridMaterial;
+        meshRenderer.sortingOrder = -1;
+
+        gridMesh = new Mesh();
+        gridMesh.MarkDynamic();
+        meshFilter.mesh = gridMesh;
     }
 
-    private void OnRenderObject()
+    private void LateUpdate()
     {
-        if (model == null || lineMaterial == null) return;
+        if (model == null) return;
+
+        // Re-position camera when resolution changes
+        if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
+        {
+            lastScreenWidth = Screen.width;
+            lastScreenHeight = Screen.height;
+            StartCoroutine(PositionCameraDeferred());
+        }
+
+        RebuildMesh();
+    }
+
+    private void RebuildMesh()
+    {
+        vertices.Clear();
+        colors.Clear();
+        triIndices.Clear();
 
         float cs = model.CellSize;
+        // Scale thickness relative to cell size so lines are visible at any resolution
+        float half = cs * 0.03f;
 
-        lineMaterial.SetPass(0);
-        GL.PushMatrix();
-        GL.MultMatrix(Matrix4x4.identity);
-
-        // --- Draw placement highlights as filled quads ---
+        // --- Placement highlights as filled quads (triangles) ---
         if (showHighlight)
         {
-            GL.Begin(GL.QUADS);
-            GL.Color(highlightColor);
-
             for (int x = highlightOrigin.x; x < highlightOrigin.x + highlightSize.x; x++)
             {
                 for (int y = highlightOrigin.y; y < highlightOrigin.y + highlightSize.y; y++)
                 {
                     if (!model.IsInBounds(x, y)) continue;
-
-                    float x0 = x * cs;
-                    float y0 = y * cs;
-                    float x1 = (x + 1) * cs;
-                    float y1 = (y + 1) * cs;
-
-                    GL.Vertex3(x0, y0, 0f);
-                    GL.Vertex3(x1, y0, 0f);
-                    GL.Vertex3(x1, y1, 0f);
-                    GL.Vertex3(x0, y1, 0f);
+                    AddQuad(x * cs, y * cs, (x + 1) * cs, (y + 1) * cs, highlightColor);
                 }
             }
-
-            GL.End();
         }
 
-        // --- Draw grid lines ---
-        GL.Begin(GL.LINES);
-        GL.Color(gridLineColor);
-
-        // Vertical line segments — skip only if BOTH adjacent cells are occupied (inside building)
+        // --- Grid lines as thin quads ---
+        // Vertical line segments
         for (int x = 0; x <= model.Width; x++)
         {
             for (int y = 0; y < model.Height; y++)
@@ -94,12 +127,12 @@ public class GridView : MonoBehaviour
                 bool rightOccupied = x < model.Width && model.GetCell(x, y).IsOccupied;
                 if (leftOccupied && rightOccupied) continue;
 
-                GL.Vertex3(x * cs, y * cs, 0);
-                GL.Vertex3(x * cs, (y + 1) * cs, 0);
+                float lx = x * cs;
+                AddQuad(lx - half, y * cs, lx + half, (y + 1) * cs, gridLineColor);
             }
         }
 
-        // Horizontal line segments — skip only if BOTH adjacent cells are occupied (inside building)
+        // Horizontal line segments
         for (int y = 0; y <= model.Height; y++)
         {
             for (int x = 0; x < model.Width; x++)
@@ -108,13 +141,39 @@ public class GridView : MonoBehaviour
                 bool aboveOccupied = y < model.Height && model.GetCell(x, y).IsOccupied;
                 if (belowOccupied && aboveOccupied) continue;
 
-                GL.Vertex3(x * cs, y * cs, 0);
-                GL.Vertex3((x + 1) * cs, y * cs, 0);
+                float ly = y * cs;
+                AddQuad(x * cs, ly - half, (x + 1) * cs, ly + half, gridLineColor);
             }
         }
 
-        GL.End();
-        GL.PopMatrix();
+        gridMesh.Clear();
+        gridMesh.SetVertices(vertices);
+        gridMesh.SetColors(colors);
+        gridMesh.subMeshCount = 1;
+        gridMesh.SetIndices(triIndices, MeshTopology.Triangles, 0);
+        // Very large bounds to prevent frustum culling at any resolution
+        gridMesh.bounds = new Bounds(Vector3.zero, Vector3.one * 10000f);
+    }
+
+    private void AddQuad(float x0, float y0, float x1, float y1, Color color)
+    {
+        int i = vertices.Count;
+        vertices.Add(new Vector3(x0, y0, 0f));
+        vertices.Add(new Vector3(x1, y0, 0f));
+        vertices.Add(new Vector3(x1, y1, 0f));
+        vertices.Add(new Vector3(x0, y1, 0f));
+
+        colors.Add(color);
+        colors.Add(color);
+        colors.Add(color);
+        colors.Add(color);
+
+        triIndices.Add(i);
+        triIndices.Add(i + 2);
+        triIndices.Add(i + 1);
+        triIndices.Add(i);
+        triIndices.Add(i + 3);
+        triIndices.Add(i + 2);
     }
 
     /// <summary>
@@ -171,7 +230,6 @@ public class GridView : MonoBehaviour
 
     /// <summary>
     /// Shows colored highlights on the grid for building placement preview.
-    /// Green = valid, Red = invalid. Drawn via GL in OnRenderObject.
     /// </summary>
     public void ShowPlacementPreview(Vector2Int origin, Vector2Int size, bool isValid)
     {
@@ -188,7 +246,11 @@ public class GridView : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (lineMaterial != null)
-            DestroyImmediate(lineMaterial);
+        if (gridObj != null)
+            Destroy(gridObj);
+        if (gridMaterial != null)
+            DestroyImmediate(gridMaterial);
+        if (gridMesh != null)
+            DestroyImmediate(gridMesh);
     }
 }
