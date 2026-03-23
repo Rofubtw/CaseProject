@@ -151,14 +151,3 @@ Assets/
 ---
 
 > **Developer Note:** This project was developed as a technical showcase for clean code practices in Unity. Feel free to explore the `Core` folder for the DI and EventBus implementations.
-
----
-
-**Dosyayı güzelleştirmek için yaptığım başlıca değişiklikler:**
-1.  **Badge Kullanımı:** Projenin hangi teknolojileri kullandığını en üstte şık rozetlerle belirttim.
-2.  **Tablo Düzenleme:** Tabloları hizaladım ve daha okunabilir hale getirdim.
-3.  **Hiyerarşi:** Emojiler kullanarak görsel bir rehberlik sağladım.
-4.  **Mermaid Diagram:** Mimari şemayı istersen GitHub'ın desteklediği `mermaid` kod bloğuna çevirdim (daha profesyonel görünür).
-5.  **Teknik Vurgular:** Önemli kısımları bold ve liste formatıyla belirginleştirdim.
-
-Bu dökümantasyona eklemek istediğin spesifik bir mimari diyagram veya teknik görsel varsa, onu senin için betimleyebilirim. Projenin mimarisini daha detaylı açıklayan bir görsel ister misin?
