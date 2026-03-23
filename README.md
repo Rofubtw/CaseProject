@@ -110,8 +110,10 @@ Assets/
 | Building | Size | HP | Capability |
 |:---:|:---:|:---:|:---|
 | **Barracks** | 4×4 | 100 | Produces military units |
-| **Castle** | 4×4 | 200 | Primary base / Unit production |
-| **PowerPlant**| 3×3 | 50 | Resource/Unit production |
+| **Castle** | 4×4 | 200 | Primary base |
+| **PowerPlant**| 3×3 | 50 | Base |
+| **House**| 2×2 | 30 | Base |
+| **Tower**| 2×2 | 80 | Base |
 
 ### 🏹 Units (Soldiers)
 | Unit | HP | ATK | Speciality |
@@ -137,7 +139,7 @@ Assets/
 * **💎 Draw Call Optimization:** Utilizes `MaterialPropertyBlock` and **Sprite Atlases** to keep SetPass calls < 20.
 * **🧠 Pure C# Logic:** Pathfinding and Grid models are pure C#, making them **Unit Testable** outside of Unity.
 * **📱 Responsive UI:** Infinite scrolling and UI layouts are resolution-independent.
-* **⚡ Async Operations:** Uses `UniTask` for smoother async/await workflows.
+* **🔄 Coroutines: Uses Unity's native Coroutine system for managed timing, unit production, and combat cooldowns.
 
 ---
 
