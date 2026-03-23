@@ -1,0 +1,170 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Units
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: af62729c637c2b249a7c1870f978e8e1, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 1934059932, guid: 5409f5204055edd4e88b682a0cc74954, type: 3}
+  - {fileID: 366138608, guid: 5409f5204055edd4e88b682a0cc74954, type: 3}
+  - {fileID: 585902739, guid: 5409f5204055edd4e88b682a0cc74954, type: 3}
+  - {fileID: 331354386, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: 983415579, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: 1293385125, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: 1304205588, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: -596398406, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: 227932709, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: -1729357903, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: 1570259077, guid: 4e0653a2db5f1964e8d1d9f69eb258b4, type: 3}
+  - {fileID: 441375965, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 1601807218, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 445168739, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: -1974525459, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 603589001, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: -1320610322, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: -1472984999, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 1941151604, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 1448697366, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: -935727963, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 1826275892, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 348780856, guid: 110279632543095408cbdec8317657b3, type: 3}
+  - {fileID: 1962150440, guid: 7212d0c3fb54f7f448f3c75489bf33ad, type: 3}
+  - {fileID: -2070356954, guid: 7212d0c3fb54f7f448f3c75489bf33ad, type: 3}
+  - {fileID: 221367782, guid: 7212d0c3fb54f7f448f3c75489bf33ad, type: 3}
+  - {fileID: 420959925, guid: 7212d0c3fb54f7f448f3c75489bf33ad, type: 3}
+  - {fileID: -522524689, guid: 7212d0c3fb54f7f448f3c75489bf33ad, type: 3}
+  - {fileID: -1348625284, guid: 7212d0c3fb54f7f448f3c75489bf33ad, type: 3}
+  - {fileID: 515818616, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: 14835366, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: -238364770, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: -699303678, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: -158988154, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: 686891005, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: -1444338473, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: 1659131206, guid: 4eabd5245aad5e64494fdd0798fafe21, type: 3}
+  - {fileID: 1407319082, guid: 6615b794df9553f41abdd409a13809d7, type: 3}
+  - {fileID: 222246785, guid: 6615b794df9553f41abdd409a13809d7, type: 3}
+  - {fileID: 1321354309, guid: 6615b794df9553f41abdd409a13809d7, type: 3}
+  - {fileID: -972594063, guid: 6615b794df9553f41abdd409a13809d7, type: 3}
+  - {fileID: -1213686778, guid: 45fe4a65451998b47976a33631d35b4c, type: 3}
+  - {fileID: 1948331585, guid: 45fe4a65451998b47976a33631d35b4c, type: 3}
+  - {fileID: 1229207451, guid: 45fe4a65451998b47976a33631d35b4c, type: 3}
+  - {fileID: 2024456068, guid: 45fe4a65451998b47976a33631d35b4c, type: 3}
+  - {fileID: 1486892277, guid: 45fe4a65451998b47976a33631d35b4c, type: 3}
+  - {fileID: 1015091673, guid: 45fe4a65451998b47976a33631d35b4c, type: 3}
+  - {fileID: 390450009, guid: 474c731855e6f854ebdf8fbd5b38fd80, type: 3}
+  - {fileID: 404315791, guid: 474c731855e6f854ebdf8fbd5b38fd80, type: 3}
+  - {fileID: 1634636746, guid: 474c731855e6f854ebdf8fbd5b38fd80, type: 3}
+  - {fileID: 1933771282, guid: 474c731855e6f854ebdf8fbd5b38fd80, type: 3}
+  - {fileID: -356836467, guid: 474c731855e6f854ebdf8fbd5b38fd80, type: 3}
+  - {fileID: 419038436, guid: 474c731855e6f854ebdf8fbd5b38fd80, type: 3}
+  - {fileID: 1829877122, guid: 5f971a3d09008594e9e29a73f9394b86, type: 3}
+  - {fileID: -1969043659, guid: 5f971a3d09008594e9e29a73f9394b86, type: 3}
+  - {fileID: 1673147746, guid: 5f971a3d09008594e9e29a73f9394b86, type: 3}
+  - {fileID: 515815079, guid: 5f971a3d09008594e9e29a73f9394b86, type: 3}
+  - {fileID: 1395197964, guid: cad8c1bf180ada64e937e672113e7650, type: 3}
+  - {fileID: 2076765169, guid: cad8c1bf180ada64e937e672113e7650, type: 3}
+  - {fileID: 1119855662, guid: cad8c1bf180ada64e937e672113e7650, type: 3}
+  - {fileID: 1491962927, guid: cad8c1bf180ada64e937e672113e7650, type: 3}
+  - {fileID: 443919608, guid: cad8c1bf180ada64e937e672113e7650, type: 3}
+  - {fileID: -503489451, guid: cad8c1bf180ada64e937e672113e7650, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Lancer_Right_Attack_1
+  - Lancer_Right_Attack_0
+  - Lancer_Right_Attack_2
+  - Archer_Shoot_7
+  - Archer_Shoot_6
+  - Archer_Shoot_5
+  - Archer_Shoot_4
+  - Archer_Shoot_3
+  - Archer_Shoot_2
+  - Archer_Shoot_1
+  - Archer_Shoot_0
+  - Lancer_Idle_11
+  - Lancer_Idle_10
+  - Lancer_Idle_8
+  - Lancer_Idle_9
+  - Lancer_Idle_6
+  - Lancer_Idle_7
+  - Lancer_Idle_4
+  - Lancer_Idle_5
+  - Lancer_Idle_2
+  - Lancer_Idle_3
+  - Lancer_Idle_0
+  - Lancer_Idle_1
+  - Archer_Idle_4
+  - Archer_Idle_5
+  - Archer_Idle_2
+  - Archer_Idle_3
+  - Archer_Idle_0
+  - Archer_Idle_1
+  - Warrior_Idle_1
+  - Warrior_Idle_0
+  - Warrior_Idle_3
+  - Warrior_Idle_2
+  - Warrior_Idle_5
+  - Warrior_Idle_4
+  - Warrior_Idle_7
+  - Warrior_Idle_6
+  - Archer_Run_1
+  - Archer_Run_0
+  - Archer_Run_3
+  - Archer_Run_2
+  - Lancer_Run_5
+  - Lancer_Run_4
+  - Lancer_Run_1
+  - Lancer_Run_0
+  - Lancer_Run_3
+  - Lancer_Run_2
+  - Warrior_Guard_4
+  - Warrior_Guard_5
+  - Warrior_Guard_0
+  - Warrior_Guard_1
+  - Warrior_Guard_2
+  - Warrior_Guard_3
+  - Warrior_Attack1_2
+  - Warrior_Attack1_3
+  - Warrior_Attack1_0
+  - Warrior_Attack1_1
+  - Warrior_Run_5
+  - Warrior_Run_0
+  - Warrior_Run_1
+  - Warrior_Run_2
+  - Warrior_Run_3
+  - Warrior_Run_4
+  m_RenderDataMap: {}
+  m_Tag: Units
+  m_IsVariant: 0
